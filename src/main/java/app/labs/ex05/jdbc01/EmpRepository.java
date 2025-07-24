@@ -1,4 +1,4 @@
-package app.labs.ex05.jdbc;
+package app.labs.ex05.jdbc01;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,9 +14,11 @@ import org.springframework.stereotype.Repository;
 public class EmpRepository implements IEmpRepository {
 	
 	@Autowired
-	JdbcTemplate jdbcTemplate;
+	JdbcTemplate jdbcTemplate; // preparedStatement 기반 -> 동적 SQL 캐싱
 	
 	// table column과 vo seter Mapping class
+	// VO가 있는 경우 RowMapper<>
+	// VO가 없는 경우 Map<>
 	// 행 마다 실행되는 mapRow 메서드 사용 가능
     private class EmpMapper implements RowMapper<EmpVO> {
         @Override
@@ -64,46 +66,66 @@ public class EmpRepository implements IEmpRepository {
 	@Override
 	public void insertEmp(EmpVO emp) {
 		String sql = "insert into employees "
-				+ "(employee_id, first_name, last_name, email, phone_number, hire_date, job_id, salary, commission_pct, manager_id, department_id)\r\n"
+				+ "(employee_id, first_name, last_name, email, phone_number, hire_date, job_id, salary, commission_pct, manager_id, department_id) "
 				+ "values "
-				+ "(1000, 'first_name', 'last_name', 'email', 'phone_number', sysdate, 'SA_REP', 90000, 0.1, 100, 30)";
-
+				+ "(?, ?, ?, ?, ?, sysdate, ?, ?, ?, ?, ?)";
+		jdbcTemplate.update(sql,
+				emp.getEmployeeId(),
+				emp.getFirstName(),
+                emp.getLastName(),
+                emp.getEmail(),
+                emp.getPhoneNumber(),
+                emp.getJobId(),
+                emp.getSalary(),
+                emp.getCommissionPct(),
+                emp.getManagerId(),
+                emp.getDepartmentId()
+                );
 	}
 
 	@Override
 	public void updateEmp(EmpVO emp) {
-		// TODO Auto-generated method stub
-
+		String sql = "update employees "
+				+ "set first_name=?, last_name=?, email=? "
+				+ "where employee_id=?;";
+		jdbcTemplate.update(sql, emp.getFirstName(), emp.getLastName(), emp.getEmail(), emp.getEmployeeId());
 	}
 
 	@Override
 	public int deleteEmp(int empId, String email) {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "delete from employees "
+				+ "where employee_id=? and email=?";
+		return jdbcTemplate.update(sql, empId, email);
 	}
 
 	@Override
 	public void deleteJobHistory(int empId) {
-		// TODO Auto-generated method stub
-
+		String sql = "delete from job_history "
+				+ "where employee_id=?";
+		jdbcTemplate.update(sql, empId);
 	}
 
 	@Override
 	public List<Map<String, Object>> getAllDeptId() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select department_id as departmentId, department_name as departmentName "
+				+ "from departments";
+		return jdbcTemplate.queryForList(sql);
 	}
 
 	@Override
 	public List<Map<String, Object>> getAllJobId() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select job_id as jobId, job_title as jobTitle "
+				+ "from jobs";
+		return jdbcTemplate.queryForList(sql);
 	}
 
 	@Override
 	public List<Map<String, Object>> getAllManagerId() {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "select distinct e1.manager_id, e2.first_name as manager_name "
+				+ "from employees e1 "
+				+ "join employees e2 on e2.employee_id = e1.manager_id "
+				+ "order by e1.manager_id";
+		return jdbcTemplate.queryForList(sql);
 	}
 
 }

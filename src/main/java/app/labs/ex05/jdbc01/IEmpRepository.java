@@ -1,4 +1,4 @@
-package app.labs.ex05.jdbc;
+package app.labs.ex05.jdbc01;
 
 import java.util.List;
 import java.util.Map;
