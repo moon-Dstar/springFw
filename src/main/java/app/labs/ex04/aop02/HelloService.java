@@ -10,20 +10,21 @@ public class HelloService implements IHelloService {
 		// 1) 코드 이용 - 재활용성이 부족하다.
 		// System.out.println(">>> Log: " + new java.util.Date());
 		
-		// 2) OOP 코드 분리 - 재활용, sayHello의 원래의 기능과 상관없는 코드
+		// 2) OOP 코드분리 - 재활용, sayHello의 원래의 기능과 상관없은 코드
 		// HelloLog.log();
 		
 		// 3) Proxy D.P.
 		
-		
 		System.out.println("HelloService.sayHello() 메서드 실행");
-		String message = "Hello~~~" + name;
+		String message = "Hello~~~ " + name;
+		
 		return message;
 	}
 
 	@Override
-	public String sayGoodbye(String name) {
-		String message = "Goodbye~~~" + name;
+	public String sayGoodBye(String name) {
+		String message = "Goodbye~~~ " + name;
+		
 		return message;
 	}
 

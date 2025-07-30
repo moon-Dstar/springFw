@@ -6,17 +6,17 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 public class HelloMain {
 
 	public static void main(String[] args) {
+		//HelloController controller = new HelloController();
+		//controller.hello("홍길동");
 		
-		// HelloController controller = new HelloController();
-		// controller.hello("홍길동");
-		
-		AbstractApplicationContext context = new GenericXmlApplicationContext("classpath:config/aop02/application-config.xml");
-		
-		HelloController controller = context.getBean("helloController", HelloController.class);
+		AbstractApplicationContext context 
+			= new GenericXmlApplicationContext("classpath:config/aop02/application-config.xml");
+
+		HelloController controller 
+		    = context.getBean("helloController", HelloController.class);
 		controller.hello("홍길동");
-		controller.goodbye("홍길동");
-		context.close();
 		
+		context.close();
 	}
 
 }

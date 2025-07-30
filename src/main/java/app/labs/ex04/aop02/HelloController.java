@@ -7,10 +7,8 @@ import org.springframework.stereotype.Controller;
 public class HelloController {
 	
 	@Autowired
-	// 멤버변수
-	private IHelloService helloService ;
+	private IHelloService helloService;
 	
-	// 생성자
 	public HelloController() {
 		// this.helloService = new HelloService();
 	}
@@ -19,7 +17,6 @@ public class HelloController {
 		this.helloService = helloService;
 	}
 	
-	// setter
 	public void setHelloService(IHelloService helloService) {
 		this.helloService = helloService;
 	}
@@ -27,9 +24,4 @@ public class HelloController {
 	public void hello(String name) {
 		System.out.println("HelloController: " + this.helloService.sayHello(name));
 	}
-	
-	public void goodbye(String name) {
-		System.out.println("HelloController: " + this.helloService.sayGoodbye(name));
-	}
-
 }

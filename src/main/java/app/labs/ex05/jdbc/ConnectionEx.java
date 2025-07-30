@@ -10,20 +10,13 @@ public class ConnectionEx {
 
 	public static void main(String[] args) {
 		/*
-		 * 	1. 데이터베이스 종류
-		 * 	2. 데이터베이스 위치
-		 * 	3. 계정
-		 * 	4. 사용할 데이터베이스 객체
+			1. 데이터베이스 종류
+			2. 데이터베이스 위치
+			3. 계정
+			4. 사용할 데이터베이스 객체
 		 */
-		
-		
-		// 1. 데이터베이스 종류
 		String jdbc = "oracle.jdbc.driver.OracleDriver";
-		
-		// 2. 데이터베이스 위치
-		String url = "jdbc:oracle:thin:@localhost:1521/xe";
-		
-		// 3. 계정
+		String url = "jdbc:oracle:thin:@localhost:1521/xepdb1";
 		String uid = "SCOTT";
 		String pwd = "TIGER";
 		
@@ -47,19 +40,19 @@ public class ConnectionEx {
 				String dname = rs.getString("dname");
 				String loc = rs.getString("loc");
 				
-				System.out.println(deptno + ", " + dname + ", " + loc);
+				System.out.println(deptno + "," + dname + "," + loc);
 			}
 			
 			rs.close();
 			stmt.close();
 			conn.close();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
-		
+		catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		} 
 	}
 
 }

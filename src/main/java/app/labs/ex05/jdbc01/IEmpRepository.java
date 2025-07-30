@@ -3,7 +3,7 @@ package app.labs.ex05.jdbc01;
 import java.util.List;
 import java.util.Map;
 
-// service 계층을 위한 기능 설계
+// service 계층을 위한 기능설계
 public interface IEmpRepository {
 	int getEmpCount();
 	int getEmpCount(int deptId);
@@ -20,6 +20,4 @@ public interface IEmpRepository {
 	List<Map<String, Object>> getAllDeptId();
 	List<Map<String, Object>> getAllJobId();
 	List<Map<String, Object>> getAllManagerId();
-	
-
 }

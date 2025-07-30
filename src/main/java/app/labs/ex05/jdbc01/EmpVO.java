@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class EmpVO {
 
-	private int employeeId; 	// 소문자 변환: Ctrl + Shift + 'Y'
-	private String firstName;	// 대문자 변환: Ctrl + Shift + 'X'
+	private int employeeId;  // 소문자 변환: ctrl+shift+'Y'
+	private String firstName;
 	private String lastName;
 	private String email;
 	private String phoneNumber;
@@ -18,6 +18,5 @@ public class EmpVO {
 	private double commissionPct;
 	private int managerId;
 	private int departmentId;
-	
-	
+
 }

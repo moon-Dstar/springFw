@@ -9,10 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EmpService implements IEmpService {
-	
+
 	@Autowired
 	IEmpRepository empRepository;
-
+	
 	@Override
 	public int getEmpCount() {
 		return empRepository.getEmpCount();
